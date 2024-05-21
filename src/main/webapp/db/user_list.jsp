@@ -17,6 +17,7 @@
 			<th>名前</th>
 			<th>年齢</th>
 			<th>更新</th>
+			<th>削除</th>
 		</tr>
 		
 		<c:forEach var="user" items="${list}">
@@ -30,6 +31,14 @@
 						<input type="hidden" name="id" value="${user.id}">
 						
 						<input type="submit" value="更新">
+					</form>
+				</td>
+				<td>
+					<form action="/dmaster/control" method="get">
+						<input type="hidden" name="action" value="delete">
+						<input type="hidden" name="id" value="${user.id}">
+						
+						<input type="submit" value="削除">
 					</form>
 				</td>
 			</tr>
