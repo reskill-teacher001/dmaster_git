@@ -19,5 +19,12 @@
 		月
 		<input type="submit" value="占ってみる">
 	</form>
+	
+	<c:if test="${not empty bean}">
+		${bean.month}の運勢は、、、<br>
+		・ラッキーカラー：${bean.color}<br>
+		・ラッキーアイテム：${bean.item}<br>
+		・順位は：${bean.rank}位<br>
+	</c:if>
 </body>
 </html>

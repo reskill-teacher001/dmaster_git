@@ -28,6 +28,12 @@ public class FortuneServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//FortuneBeanのインスタンスを生成
+		FortuneBean bean = new FortuneBean(9, "タオル", "白", 6);
+		
+		//リクエスト・スコープに記憶
+		request.setAttribute("bean", bean);
+		
 		//リクエスト転送
 		RequestDispatcher rd = request.getRequestDispatcher("/kadai30/fortune.jsp");
 		rd.forward(request, response);
