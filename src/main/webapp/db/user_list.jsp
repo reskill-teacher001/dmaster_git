@@ -21,7 +21,8 @@
 				<td>${user.id}</td><td>${user.name}</td><td>${user.age}</td>
 			</tr>
 		</c:forEach>
-	
 	</table>
+	
+	<a href="/dmaster/control?action=insert">新規登録</a>
 </body>
 </html>

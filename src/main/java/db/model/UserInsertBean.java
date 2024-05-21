@@ -9,7 +9,7 @@ public class UserInsertBean implements IBean {
 	@Override
 	public String execute(HttpServletRequest request) throws DAOException {
 
-		return "/"; //表示するページを返す
+		return "/db/user_insert.jsp"; //表示するページを返す
 	}
 
 }
