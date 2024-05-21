@@ -1,6 +1,7 @@
 package kadai30;
 
 import java.io.IOException;
+import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,8 +29,23 @@ public class FortuneServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//文字化け対策
+		request.setCharacterEncoding("UTF-8");
+		
+		int month = Integer.parseInt(request.getParameter("month"));
+		
+		String[] colors = {"赤", "黄", "白"};
+		String[] items = {"タオル", "カバン", "腕時計"};
+		
+		Random rand = new Random();
+		
+		int colorNum = rand.nextInt(3);
+		int itemNum = rand.nextInt(3);
+		int rank = rand.nextInt(12) + 1;
+		
 		//FortuneBeanのインスタンスを生成
-		FortuneBean bean = new FortuneBean(9, "タオル", "白", 6);
+		FortuneBean bean = new FortuneBean(
+				month, items[itemNum], colors[colorNum], rank);
 		
 		//リクエスト・スコープに記憶
 		request.setAttribute("bean", bean);
