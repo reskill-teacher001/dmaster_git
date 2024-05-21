@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>データ送信</title>
+</head>
+<body>
+	<h1>データ送信</h1>
+	<hr>
+	
+	<form action="receive01" method="get">
+		<input type="hidden" name="action" value="write">
+		名前：
+		<input type="text" name="NAMAE">
+		<br>
+		
+		性別：
+		<input type="radio" name="GENDER" value="男性" checked>男性
+		<input type="radio" name="GENDER" value="女性">女性
+		<br>
+		
+		都道府県：
+		<select name="PREF">
+			<option value="北海道">北海道</option>
+			<option value="東京">東京</option>
+			<option value="大阪">大阪</option>
+			<option value="福岡">福岡</option>
+			<option value="沖縄">沖縄</option>
+		</select>
+		<br>
+		
+		好きなフルーツ：
+		<input type="checkbox" name="FRUITS" value="みかん">みかん
+		<input type="checkbox" name="FRUITS" value="りんご">りんご
+		<input type="checkbox" name="FRUITS" value="ぶどう">ぶどう
+		<input type="checkbox" name="FRUITS" value="もも">もも
+		<br>
+		
+		お問い合わせ内容：<br>
+		<textarea name="QUERY"></textarea>
+		<br>
+		
+		<input type="submit" value="送信">
+	</form>
+</body>
+</html>

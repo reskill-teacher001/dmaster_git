@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>掲示板</title>
+</head>
+<body>
+	<form action="/cmaster/BbsServlet" method="post">
+		<input type="hidden" name="action" value="write">
+		
+		名前：<br>
+		<input type="text" name="NAME">
+		<br>
+		メッセージ：<br>
+		<textarea name="MESSAGE" cols="30" rows="5"></textarea>
+		<br>
+		<input type="submit" value="書き込み">
+	</form>
+
+	<hr>
+</body>
+</html>
