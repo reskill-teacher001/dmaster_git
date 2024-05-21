@@ -42,6 +42,8 @@ public class ControlServlet extends HttpServlet {
 
 		//リクエスト・パラメータを取得
 		String action = request.getParameter("action");
+		
+		System.out.println(action);
 
 		String page = "/db/error.jsp";
 
