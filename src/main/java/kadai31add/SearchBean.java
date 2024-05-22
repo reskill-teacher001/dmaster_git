@@ -1,4 +1,4 @@
-package kadai31;
+package kadai31add;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +6,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class WordModel {
-	public List<WordBean> execute(HttpServletRequest request) {
+public class SearchBean implements IBean {
+
+	@Override
+	public String execute(HttpServletRequest request) {
 		List<WordBean> search = new ArrayList<>();
 		
 		//リクエスト・パラメータを取得
@@ -17,14 +19,14 @@ public class WordModel {
 		HttpSession session = request.getSession(false);
 		
 		if (session == null) {
-			return search;
+			return "/kadai31add/error.js";
 		}
 		
 		@SuppressWarnings("unchecked")
 		List<WordBean> list = (List<WordBean>)session.getAttribute("list");
 		
 		if (list == null) {
-			return search;
+			return "/kadai31add/error.jsp";
 		}
 		
 		for (WordBean bean : list) {
@@ -35,6 +37,9 @@ public class WordModel {
 			}
 		}
 		
-		return search;
+		request.setAttribute("list", search);
+		
+		return "/kadai31add/listword.jsp";
 	}
+
 }

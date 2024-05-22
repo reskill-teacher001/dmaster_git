@@ -1,8 +1,6 @@
-package kadai31;
+package kadai31add;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,12 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class FortuneServlet
  */
-@WebServlet("/WordServlet")
+@WebServlet("/word")
 public class WordServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -35,42 +32,24 @@ public class WordServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		//リクエスト・パラメータを取得
-		String english = request.getParameter("english");
-		String japanese = request.getParameter("japanese");
+		String action = request.getParameter("action");
 		
-		WordBean bean = new WordBean(english, japanese);
+		IBean bean = null;
 		
-		//セッションオブジェクトを取得
-		HttpSession session = request.getSession(true);
-		
-		@SuppressWarnings("unchecked")
-		List<WordBean> list = (List<WordBean>)session.getAttribute("list");
-		
-		if (list == null) {
-			list = new ArrayList<>();
-			session.setAttribute("list", list); //セッション・スコープに記憶
+		if (action.equals("add")) {
+			bean = new AddBean();
+		} else if (action.equals("search")) {
+			bean = new SearchBean();
 		}
 		
-		list.add(bean);
+		String page = bean.execute(request);
 		
 		//リクエスト転送
-		RequestDispatcher rd = request.getRequestDispatcher("/kadai31/listword.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher(page);
 		rd.forward(request, response);
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//文字化け対策
-		request.setCharacterEncoding("UTF-8");
-		
-		WordModel model = new WordModel();
-		
-		List<WordBean> search = model.execute(request);
-		
-		request.setAttribute("list", search);
-		
-		//リクエスト転送
-		RequestDispatcher rd = request.getRequestDispatcher("/kadai31/listword.jsp");
-		rd.forward(request, response);
-
+		doGet(request, response);
 	}
 }

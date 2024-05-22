@@ -1,4 +1,4 @@
-package kadai31;
+package kadai31add;
 
 import java.io.Serializable;
 
