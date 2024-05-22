@@ -12,6 +12,7 @@
 
 <form action="/dmaster/ItemServlet" method="post">
 検索：<input type="text" name="price" size="5">円以下の商品を
+追加：商品名<input type="text" name="name" value="${name}">
 <input type="submit" value="検索">
 <input type="hidden" name="action" value="search">
 </form>
