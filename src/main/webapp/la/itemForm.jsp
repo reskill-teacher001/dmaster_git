@@ -19,12 +19,23 @@
 </form>
 -->
 
+<!--
 <form action="/dmaster/ItemServlet" method="post">
 検索：
 <input type="text" name="minPrice" size="5">円以上
 <input type="text" name="maxPrice" size="5">円以下の商品を
 <input type="submit" value="検索">
 <input type="hidden" name="action" value="search_between">
+</form>
+-->
+
+<form action="/dmaster/ItemServlet" method="post">
+検索：
+商品名<input type="text" name="name">｜
+<input type="text" name="minPrice" size="5">円以上
+<input type="text" name="maxPrice" size="5">円以下の商品を
+<input type="submit" value="検索">
+<input type="hidden" name="action" value="search_step3">
 </form>
 
 <form action="/dmaster/ItemServlet" method="post">
