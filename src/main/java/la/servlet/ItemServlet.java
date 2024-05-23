@@ -51,6 +51,8 @@ public class ItemServlet extends HttpServlet {
 		
 		//リクエストパラメータを取得
 		String action = request.getParameter("action");
+
+		System.out.println(action);
 		
 		IBean bean = null;
 		String page = "/la/errInternal.jsp";

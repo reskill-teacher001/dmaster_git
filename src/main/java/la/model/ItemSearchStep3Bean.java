@@ -3,6 +3,7 @@ package la.model;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import la.bean.Item;
 import la.dao.DAOException;
@@ -17,6 +18,13 @@ public class ItemSearchStep3Bean implements IBean {
 		
 		String min = request.getParameter("minPrice");
 		String max = request.getParameter("maxPrice");
+		
+		//Step4
+		HttpSession session = request.getSession(true);
+		
+		session.setAttribute("name", name);
+		session.setAttribute("min", min);
+		session.setAttribute("max", max);
 		
 		//ItemDAOクラスのインスタンスを生成
 		ItemDAO dao = new ItemDAO();
