@@ -16,6 +16,7 @@ import la.model.ItemDeleteBean;
 import la.model.ItemInsertBean;
 import la.model.ItemListBean;
 import la.model.ItemSearchBean;
+import la.model.ItemSearchBetweenBean;
 import la.model.ItemSortBean;
 
 /**
@@ -60,6 +61,8 @@ public class ItemServlet extends HttpServlet {
 				bean = new ItemSortBean();
 			} else if (action.equals("search")) {
 				bean = new ItemSearchBean();
+			} else if (action.equals("search_between")) {
+				bean = new ItemSearchBetweenBean();
 			} else if (action.equals("add")) {
 				bean = new ItemInsertBean();
 			} else if (action.equals("delete")) {
