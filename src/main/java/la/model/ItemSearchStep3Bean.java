@@ -23,8 +23,19 @@ public class ItemSearchStep3Bean implements IBean {
 		HttpSession session = request.getSession(true);
 		
 		session.setAttribute("name", name);
-		session.setAttribute("min", min);
-		session.setAttribute("max", max);
+		session.setAttribute("minPrice", min);
+		session.setAttribute("maxPrice", max);
+		
+		String data = "";
+		
+//		data += !name.equals("") ? "&name=" + name : "";
+//		data += !min.equals("") ? "&min=" + min : "";
+//		data += !max.equals("") ? "&max=" + max : "";
+		data += "&name=" + name;
+		data += "&minPrice=" + min;
+		data += "&maxPrice=" + max;
+
+		session.setAttribute("data", data);
 		
 		//ItemDAOクラスのインスタンスを生成
 		ItemDAO dao = new ItemDAO();

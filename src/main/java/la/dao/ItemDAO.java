@@ -195,11 +195,92 @@ public class ItemDAO extends DAO {
 		return list;
 	}
 
+	public List<Item> findByNameAndPrice(String _name, int _price, boolean check, boolean ascending) throws DAOException {
+		List<Item> list = new ArrayList<>();
+
+		String sql = "SELECT code, name, price FROM item WHERE price <= ?";
+		
+		if (check == false) {
+			sql = "SELECT code, name, price FROM item WHERE price >= ?";
+		}
+		
+		if (!_name.equals("")) {
+			sql += " AND name LIKE ?";
+		}
+		
+		sql += (ascending ? " ORDER BY price ASC" : " ORDER BY price DESC");
+		
+		try (
+			//正常にDBに接続された時に利用できるリモコンcon
+			Connection con = getConnect();
+		) {
+			//SQL文を実行する準備をする
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, _price);
+			
+			if (!_name.equals("")) {
+				ps.setString(2, "%" + _name + "%");
+			}
+
+			//SQLを実行して結果を取得する
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next() == true) { //レコードがあったら
+				//レコードの列のデータを取得する
+				int code = rs.getInt("code");       //codeの列のデータを取得
+				String name = rs.getString("name"); //nameの列のデータを取得
+				int price = rs.getInt("price");     //priceの列のデータを取得
+
+				list.add(new Item(code, name, price));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました");
+		}
+
+		return list;
+	}
+
 	public List<Item> findByName(String _name) throws DAOException {
 		List<Item> list = new ArrayList<>();
 
 		String sql = "SELECT code, name, price FROM item WHERE name LIKE ?";
 
+		try (
+			//正常にDBに接続された時に利用できるリモコンcon
+			Connection con = getConnect();
+		) {
+			//SQL文を実行する準備をする
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, "%" + _name + "%");
+
+			//SQLを実行して結果を取得する
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next() == true) { //レコードがあったら
+				//レコードの列のデータを取得する
+				int code = rs.getInt("code");       //codeの列のデータを取得
+				String name = rs.getString("name"); //nameの列のデータを取得
+				int price = rs.getInt("price");     //priceの列のデータを取得
+
+				list.add(new Item(code, name, price));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました");
+		}
+
+		return list;
+	}
+
+	public List<Item> findByName(String _name, boolean ascending) throws DAOException {
+		List<Item> list = new ArrayList<>();
+
+		String sql = "SELECT code, name, price FROM item WHERE name LIKE ?";
+		sql += (ascending ? " ORDER BY price ASC" : " ORDER BY price DESC");
+		
 		try (
 			//正常にDBに接続された時に利用できるリモコンcon
 			Connection con = getConnect();
@@ -275,6 +356,51 @@ public class ItemDAO extends DAO {
 			sql += " AND name LIKE ?";
 		}
 
+		try (
+			//正常にDBに接続された時に利用できるリモコンcon
+			Connection con = getConnect();
+		) {
+			//SQL文を実行する準備をする
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, minPrice);
+			ps.setInt(2, maxPrice);
+			
+			if (!_name.equals("")) {
+				ps.setString(3, "%" + _name + "%");
+			}
+
+			//SQLを実行して結果を取得する
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next() == true) { //レコードがあったら
+				//レコードの列のデータを取得する
+				int code = rs.getInt("code");       //codeの列のデータを取得
+				String name = rs.getString("name"); //nameの列のデータを取得
+				int price = rs.getInt("price");     //priceの列のデータを取得
+
+				list.add(new Item(code, name, price));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました");
+		}
+
+		return list;
+	}
+
+	public List<Item> findByNameAndPriceBetween(String _name, int minPrice, int maxPrice, boolean ascending) throws DAOException {
+		List<Item> list = new ArrayList<>();
+
+		String sql = "SELECT code, name, price FROM item ";
+		sql += "WHERE price BETWEEN ? AND ?";
+		
+		if (!_name.equals("")) {
+			sql += " AND name LIKE ?";
+		}
+		
+		sql += (ascending ? " ORDER BY price ASC" : " ORDER BY price DESC");
+		
 		try (
 			//正常にDBに接続された時に利用できるリモコンcon
 			Connection con = getConnect();

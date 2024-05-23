@@ -32,8 +32,8 @@
 <form action="/dmaster/ItemServlet" method="post">
 検索：
 商品名<input type="text" name="name" value="${name}">｜
-<input type="text" name="minPrice" size="5" value="${min}">円以上
-<input type="text" name="maxPrice" size="5" value="${max}">円以下の商品を
+<input type="text" name="minPrice" size="5" value="${minPrice}">円以上
+<input type="text" name="maxPrice" size="5" value="${maxPrice}">円以下の商品を
 <input type="submit" value="検索">
 <input type="hidden" name="action" value="search_step3">
 </form>
