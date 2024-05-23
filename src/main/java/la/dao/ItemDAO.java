@@ -112,6 +112,44 @@ public class ItemDAO extends DAO {
 		return list;
 	}
 
+	//複数件検索メソッド（指定した単価以下の商品を取得）
+	public List<Item> findByPrice(int _price, boolean check) throws DAOException {
+		List<Item> list = new ArrayList<>();
+
+		String sql = "SELECT code, name, price FROM item WHERE price <= ?";
+		
+		if (check == false) {
+			sql = "SELECT code, name, price FROM item WHERE price >= ?";
+		}
+
+		try (
+			//正常にDBに接続された時に利用できるリモコンcon
+			Connection con = getConnect();
+		) {
+			//SQL文を実行する準備をする
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, _price);
+
+			//SQLを実行して結果を取得する
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next() == true) { //レコードがあったら
+				//レコードの列のデータを取得する
+				int code = rs.getInt("code");       //codeの列のデータを取得
+				String name = rs.getString("name"); //nameの列のデータを取得
+				int price = rs.getInt("price");     //priceの列のデータを取得
+
+				list.add(new Item(code, name, price));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました");
+		}
+
+		return list;
+	}
+
 	//複数件検索メソッド（指定した範囲の単価の商品を取得）
 	public List<Item> findByPriceBetween(int minPrice, int maxPrice) throws DAOException {
 		List<Item> list = new ArrayList<>();

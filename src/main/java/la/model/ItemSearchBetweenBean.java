@@ -13,13 +13,21 @@ public class ItemSearchBetweenBean implements IBean {
 	@Override
 	public String execute(HttpServletRequest request) throws DAOException {
 		//リクエストパラメータを取得
-		int minPrice = Integer.parseInt(request.getParameter("minPrice"));
-		int maxPrice = Integer.parseInt(request.getParameter("maxPrice"));
+		String min = request.getParameter("minPrice");
+		String max = request.getParameter("maxPrice");
 		
 		//ItemDAOクラスのインスタンスを生成
 		ItemDAO dao = new ItemDAO();
 		
-		List<Item> items = dao.findByPriceBetween(minPrice, maxPrice);
+		List<Item> items = null;
+		
+		if (!min.equals("") && !max.equals("")) {
+			items = dao.findByPriceBetween(Integer.parseInt(min), Integer.parseInt(max));
+		} else if (!min.equals("") && max.equals("")) {
+			items = dao.findByPrice(Integer.parseInt(min), false);
+		} else if (min.equals("") && !max.equals("")) {
+			items = dao.findByPrice(Integer.parseInt(max), true);
+		}
 		
 		request.setAttribute("items", items);
 		
